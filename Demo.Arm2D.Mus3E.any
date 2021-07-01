@@ -1,0 +1,114 @@
+/**
+This model is an extension of the simpler Demo.Arm2D example.
+It demostrates how to organize your model in multiple files,
+and moreover it applies the more complicated 3-element muscle
+model.
+*/
+Main = {
+  
+  AnyOperationSequence RunAll = 
+  {
+    /*Settings = 
+    {
+    Echo = On;
+    ModelSceneUpdate = On;
+    };*/
+    AnyOperation &o1 = Main.CalStudy.TendonLengthAdjustment;
+    AnyOperation &o2 = Main.ArmModelStudy.InverseDynamics;
+  };
+
+  
+  // =======================================================
+  // The Arm Model
+  // =======================================================
+  AnyFolder ArmModel = {
+    
+    #include "Arm2D.MechSystem.any"
+    #include "Arm2D.Muscles.Mus3E.any"
+    
+    
+    // -----------------------------------------------------
+    // Motion Drivers
+    //   Notice that the reaction force's type is set to zero 
+    //   This indicates that the reactions is inactive, 
+    //   i.e. it does not carry any load
+    // -----------------------------------------------------
+    AnyFolder Drivers = {
+      
+      //---------------------------------
+      AnyKinEqSimpleDriver ShoulderMotion = {
+        AnyJoint &Jnt = ..Jnts.Shoulder;
+        DriverPos = {1.5};
+        DriverVel = {-0.7};
+        Reaction.Type = {Off};
+      };
+      
+      //---------------------------------
+      AnyKinEqSimpleDriver ElbowMotion = {
+        AnyJoint &Jnt = ..Jnts.Elbow;
+        DriverPos = {-1.5};
+        DriverVel = {-0.7};
+        Reaction.Type = {Off};
+      };
+      
+    };
+    
+    // -----------------------------------------------------
+    // Applied Loads
+    //   Notice that gravity is included automatically
+    //   We apply two loads (they may be uncommented in the 
+    //   file):
+    //   - A force (point load, 3D vector) at the hand
+    //   - A load to the elbow joint. Since the elbow 
+    //     joint is revolute joint measuring angle, the load 
+    //     applied is equivalent to a torque.
+    // -----------------------------------------------------
+    AnyFolder Loads = {
+      
+      //---------------------------------
+      AnyForce3D HandLoad = {
+        AnyRefNode &HandNode = ..Segs.LowerArm.HandNode;
+        F = {0,0,-100};  // Global force in Newton
+
+        /// A picture of a dumbbell is added but notice that it is only a picture
+        /// Inertia properties are not included; to do so an AnySeg must be 
+        /// defined and attached to the hand
+        HandNode = {
+          AnyRefNode PalmNode = {
+            sRel = {0,0,0};
+            ARel = RotMat(pi/2,z);
+            //AnyDrawSTL DrwSTL = {
+            AnyDrawSurf DrwSTL = {
+              FileName = "dumbbell";
+              ScaleXYZ = {0.001, 0.001, 0.001};
+              RGB = {0.2,0.4,0.5};
+            };
+          };
+        };
+      };
+      
+      //---------------------------------
+      AnyForce ElbowTorque = {
+        AnyJoint& Jnt = ..Jnts.Elbow;
+        F = {10};  // Force, equivalent to torque in Newton
+      };
+      
+    }; //End of Loads
+    
+  };//End of ArmModel
+  
+  
+  
+  // =======================================================
+  // "The body study"
+  // =======================================================
+  AnyBodyStudy ArmModelStudy = {
+    AnyFolder& Model = Main.ArmModel;
+    Gravity = {0,0,-9.81};
+  };
+  
+  
+  AnyBodyCalibrationStudy CalStudy = {
+    AnyFolder &Model = Main.ArmModel;
+  };
+}; // End of file

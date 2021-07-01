@@ -1,0 +1,255 @@
+// -----------------------------------------------------
+// Muscles
+// -----------------------------------------------------
+
+AnyFolder Muscles = {
+  
+  //---------------------------------
+  //The muscle parameters marked with (Yamaguchi) are taken from the appendix by Yamaguchi et. al. 
+  //in the book "Multiple Muscle systems" by Jack M. Winters and Savio L-Y. Woo
+  //Springer verlag, 1990, ISBN 0-387-9730-9
+  // 
+  AnyVar MaxMusStress =230;
+  
+  
+  AnyFolder  MuscleModel = { 
+    AnyMuscleModel3E DeltoideusA = {
+      //Contractile element parameters 
+      AnyVar PCSA = 8.8;     //physical cross sectional area  (Estimated)
+      F0=..MaxMusStress*PCSA;  //maximum isometric strenght
+      Lf0=0.05;            //muscle fiber length (Estimated)
+      Gamma0 =5.0*pi/180.0;//pennation angle in radians (Estimated)
+      Epsilon0 =0.05;      //strain at optimal force (Estimated)
+      Fcfast =0.4;           //percentile of fast fibers (Estimated)
+      K1=8;                  //factor for max. contraction speed  (Estimated)
+      K2=2;                  //factor for max. contractio (Estimated)         
+      
+      //Tendon element parameters
+      Lt0 = 0.1;            //resting tendon length (Estimated)
+      Jt =3 ;                //shape factor for tendon stiffness (Estimated)
+      
+      //Parallel elastic element parameters
+      PEFactor =1.5;         //factor for PE element (Estimated) 
+      Jpe =3;                //shape factor for parallel elastic element stiffness (Estimated) 
+    };
+    
+    
+    AnyMuscleModel3E DeltoideusB= {
+      //Contractile element parameters 
+      AnyVar PCSA = 8.8;     //physical cross sectional area  (Estimated)
+      F0=..MaxMusStress*PCSA;  //maximum isometric strenght
+      Lf0=0.05;            //muscle fiber length (Estimated)
+      Gamma0 =5.0*pi/180.0;//pennation angle in radians (Estimated)
+      Epsilon0 =0.05;      //strain at optimal force (Estimated)
+      Fcfast =0.4;           //percentile of fast fibers (Estimated)
+      K1=8;                  //factor for max. contraction speed  (Estimated)
+      K2=2;                  //factor for max. contractio (Estimated)         
+      
+      //Tendon element parameters
+      Lt0 = 0.1;            //resting tendon length (Estimated)
+      Jt =3 ;                //shape factor for tendon stiffness (Estimated)
+      
+      //Parallel elastic element parameters
+      PEFactor =1.5;         //factor for PE element (Estimated) 
+      Jpe =3;                //shape factor for parallel elastic element stiffness (Estimated) 
+    };
+    
+    
+    //---------------------------------
+    AnyMuscleModel3E Brachialis = {
+      //Contractile element parameters 
+      AnyVar PCSA = 9.0;     //physical cross sectional area
+      F0=..MaxMusStress*PCSA;  //maximum isometric strenght
+      Lf0=0.09;            //muscle fiber length  (Yamaguchi)
+      Gamma0 =2.0*pi/180.0;//pennation angle in radians (Estimated)
+      Epsilon0 =0.053;     //strain at optimal force (Estimated)
+      Fcfast =0.4;           //percentile of fast fibers (Estimated) 
+      K1=8;                  //factor for max. contraction speed (Estimated)  
+      K2=2;                  //factor for max. contractio (Estimated)         
+      
+      //Tendon element parameters
+      Lt0 = 0.03;            //resting tendon length (Estimated)
+      Jt =3 ;                //shape factor for tendon stiffness (Estimated)
+      
+      //Parallel elastic element parameters
+      PEFactor =1.5;         //factor for PE element (Estimated)
+      Jpe =3;                //shape factor for parallel elastic element stiffness (Estimated) 
+    };
+    
+    //---------------------------------
+    AnyMuscleModel3E Brachioradialis = {
+      //Contractile element parameters 
+      AnyVar PCSA = 1.5;     //physical cross sectional area  (Yamaguchi)
+      F0=..MaxMusStress*PCSA;  //maximum isometric strenght
+      Lf0=0.16;            //muscle fiber length  (Yamaguchi)
+      Gamma0 =5.0*pi/180.0;//pennation angle in radians (Estimated)
+      Epsilon0 =0.05;      //strain at optimal force (Estimated)
+      Fcfast =0.4;           //percentile of fast fibers (Estimated)
+      K1=8;                  //factor for max. contraction speed  (Estimated)
+      K2=2;                  //factor for max. contractio (Estimated)         
+      
+      //Tendon element parameters
+      Lt0 = 0.1;            //resting tendon length (Estimated)
+      Jt =3 ;                //shape factor for tendon stiffness (Estimated)
+      
+      //Parallel elastic element parameters
+      PEFactor =1.5;         //factor for PE element (Estimated) 
+      Jpe =3;                //shape factor for parallel elastic element stiffness (Estimated) 
+    };
+    
+    //---------------------------------
+    AnyMuscleModel3E BicepsShort = {
+      //Contractile element parameters 
+      AnyVar PCSA = 2.1;     //physical cross sectional area (Yamaguchi)
+      F0=..MaxMusStress*PCSA;  //maximum isometric strenght
+      Lf0=0.15;            //muscle fiber length  (Yamaguchi)
+      Gamma0 =2.0*pi/180.0;//pennation angle in radians (Estimated)
+      Epsilon0 =0.053;     //strain at optimal force (Estimated)
+      Fcfast =0.4;           //percentile of fast fibers (Estimated) 
+      K1=8;                  //factor for max. contraction speed (Estimated)  
+      K2=2;                  //factor for max. contractio (Estimated)         
+      
+      //Tendon element parameters
+      Lt0 = 0.15;            //resting tendon length (Estimated)
+      Jt =3 ;                //shape factor for tendon stiffness (Estimated)
+      
+      //Parallel elastic element parameters
+      PEFactor =1.5;         //factor for PE element (Estimated)
+      Jpe =3;                //shape factor for parallel elastic element stiffness (Estimated) 
+    };
+    
+    //---------------------------------
+    AnyMuscleModel3E TricepsShort = {
+      //Contractile element parameters 
+      AnyVar PCSA = 8.0;     //physical cross sectional area  (Estimated)
+      F0=..MaxMusStress*PCSA;  //maximum isometric strenght
+      Lf0=0.09;            //muscle fiber length (Estimated)
+      Gamma0 =2.0*pi/180.0;//pennation angle in radians (Estimated)
+      Epsilon0 =0.05;      //strain at optimal force (Estimated)
+      Fcfast =0.4;           //percentile of fast fibers (Estimated)
+      K1=8;                  //factor for max. contraction speed  (Estimated)
+      K2=2;                  //factor for max. contractio (Estimated)         
+      
+      //Tendon element parameters
+      Lt0 = 0.15;            //resting tendon length (Estimated)
+      Jt =3 ;                //shape factor for tendon stiffness (Estimated)
+      
+      //Parallel elastic element parameters
+      PEFactor =1.5;         //factor for PE element (Estimated) 
+      Jpe =3;                //shape factor for parallel elastic element stiffness (Estimated) 
+    };
+    
+    //---------------------------------
+    AnyMuscleModel3E BicepsLong = {
+      //Contractile element parameters 
+      AnyVar PCSA = 1.94;    //physical cross sectional area  (Yamaguchi)
+      F0=..MaxMusStress*PCSA;  //maximum isometric strenght
+      Lf0=0.136;           //muscle fiber length (Yamaguchi)
+      Gamma0=2.0*pi/180.0; //pennation angle in radians (Estimated)
+      Epsilon0 =0.05;      //strain at optimal force (Estimated)
+      Fcfast =0.4;           //percentile of fast fibers (Estimated)
+      K1=8;                  //factor for max. contraction speed  (Estimated)
+      K2=2;                  //factor for max. contractio (Estimated)         
+      
+      //Tendon element parameters
+      Lt0 = 0.16;            //resting tendon length (Estimated)
+      Jt =3 ;                //shape factor for tendon stiffness (Estimated)
+      
+      //Parallel elastic element parameters
+      PEFactor =1.5;         //factor for PE element (Estimated) 
+      Jpe =3;                //shape factor for parallel elastic element stiffness (Estimated) 
+    };
+    
+    //---------------------------------
+    AnyMuscleModel3E TricepsLong = {
+      //Contractile element parameters 
+      AnyVar PCSA = 6.7;     //physical cross sectional area (Yamaguchi)
+      F0=..MaxMusStress*PCSA; //maximum isometric strenght
+      Lf0=0.102;            //muscle fiber length  (Yamaguchi)
+      Gamma0=2.0*pi/180.0; //pennation angle in radians (Estimated) 
+      Epsilon0 =0.053;     //strain at optimal force (Estimated) 
+      Fcfast =0.4;           //percentile of fast fibers (Estimated) 
+      K1=8;                  //factor for max. contraction speed  (Estimated) 
+      K2=2;                  //factor for max. contractio (Estimated)          
+      
+      //Tendon element parameters
+      Lt0 = 0.20;            //resting tendon length (Estimated) 
+      Jt =3 ;                //shape factor for tendon stiffness (Estimated) 
+      
+      //Parallel elastic element parameters
+      PEFactor =1.5;         //factor for PE element (Estimated)  
+      Jpe =3;                //shape factor for parallel elastic element stiffness  (Estimated) 
+    };
+    
+  }; //End MuscleModel folder
+  
+  AnyFolder  MuscleTopology = { 
+    
+    //---------------------------------
+    AnyViaPointMuscle DeltoideusA = {
+      AnyMuscleModel &MusMdl = ..MuscleModel.DeltoideusA;
+      AnyRefNode &Org = ...GlobalRef.DeltoideusA;
+      AnyRefNode &Ins = ...Segs.UpperArm.DeltoideusA;
+      AnyDrawMuscle DrwMus = {};
+    };
+    
+    //---------------------------------
+    AnyViaPointMuscle DeltodeusB = {
+      AnyMuscleModel &MusMdl = ..MuscleModel.DeltoideusB;
+      AnyRefNode &Org = ...GlobalRef.DeltoideusB;
+      AnyRefNode &Ins = ...Segs.UpperArm.DeltoideusB;
+      AnyDrawMuscle DrwMus = {};
+    };
+    
+    
+    //---------------------------------
+    AnyViaPointMuscle Brachialis = {
+      AnyMuscleModel &MusMdl = ..MuscleModel.Brachialis;
+      AnyRefNode &Org = ...Segs.UpperArm.Brachialis;
+      AnyRefNode &Ins = ...Segs.LowerArm.Brachialis;
+      AnyDrawMuscle DrwMus = {};
+    };
+    
+    //---------------------------------
+    AnyViaPointMuscle Brachioradialis = {
+      AnyMuscleModel &MusMdl = ..MuscleModel.Brachioradialis;
+      AnyRefNode &Org = ...Segs.UpperArm.Brachioradialis;
+      AnyRefNode &Ins = ...Segs.LowerArm.Brachioradialis;
+      AnyDrawMuscle DrwMus = {};
+    };
+    
+    //---------------------------------
+    AnyViaPointMuscle BicepsShort = {
+      AnyMuscleModel &MusMdl = ..MuscleModel.BicepsShort;
+      AnyRefNode &Org = ...Segs.UpperArm.BicepsShort;
+      AnyRefNode &Ins = ...Segs.LowerArm.Biceps;
+      AnyDrawMuscle DrwMus = {};
+    };
+    
+    //---------------------------------
+    AnyViaPointMuscle TricepsShort = {
+      AnyMuscleModel &MusMdl = ..MuscleModel.TricepsShort;
+      AnyRefNode &Org = ...Segs.UpperArm.TricepsShort;
+      AnyRefNode &Ins = ...Segs.LowerArm.Triceps;
+      AnyDrawMuscle DrwMus = {};
+    };
+    
+    //---------------------------------
+    AnyViaPointMuscle BicepsLong = {
+      AnyMuscleModel &MusMdl = ..MuscleModel.BicepsLong;
+      AnyRefNode &Org = ...GlobalRef.BicepsLong;
+      AnyRefNode &Ins = ...Segs.LowerArm.Biceps;
+      AnyDrawMuscle DrwMus = {};
+    };
+    
+    //---------------------------------
+    AnyViaPointMuscle TricepsLong = {
+      AnyMuscleModel &MusMdl = ..MuscleModel.TricepsLong;
+      AnyRefNode &Org = ...GlobalRef.TricepsLong;
+      AnyRefNode &Ins = ...Segs.LowerArm.Triceps;
+      AnyDrawMuscle DrwMus = {};
+    };
+    
+  };//End MuscleTopology folder
+
+};//End Muscle folder

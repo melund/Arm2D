@@ -1,0 +1,89 @@
+/**
+In this model we exploit the file structure of the 
+Demo.Arm2D.Mus3E for making a model with two arms.
+*/
+Main = {
+  
+  AnyFolder Param = {
+    AnyVar ShoulderAngle = 1.5;
+    AnyVar ElbowAngle = 1.5;
+    AnyVar Load = -1000;
+    AnyVar ModelWidth = 0.5;
+  };
+
+// =======================================================
+// The Arm Model
+// =======================================================
+AnyFolder ArmModel = {
+  
+  AnyFolder Right = {
+
+    #include "Arm2D.MechSystem.any"
+    #include "Arm2D.Muscles.Mus3E.any"
+    
+    GlobalRef.Origin = {0,Main.Param.ModelWidth/2.0,0};
+    
+    
+    //---------------------------------
+    AnyKinEqSimpleDriver JointMotion = {
+      AnyJoint &Jnt1 = .Jnts.Shoulder;
+      AnyJoint &Jnt2 = .Jnts.Elbow;
+      DriverPos = {Main.Param.ShoulderAngle,Main.Param.ElbowAngle};
+      DriverVel = {0.0,0.0};
+      Reaction.Type = {Off,Off};
+    };
+    
+    AnyForce3D HandLoad = {
+      AnyRefNode &HandNode = .Segs.LowerArm.HandNode;
+      F = {0,0,2*Main.Param.Load*t};  // Global force in Newton
+      //Flocal = {0,0,-100};  // Global force in Newton
+    };
+
+  }; // End of Right
+    
+  AnyFolder Left = {
+
+    #include "Arm2D.MechSystem.any"
+    #include "Arm2D.Muscles.Mus3E.any"
+
+     GlobalRef.Origin = {0,-Main.Param.ModelWidth/2.0,0};
+
+    
+    //---------------------------------
+    AnyKinEqSimpleDriver JointMotion = {
+      AnyJoint &Jnt1 = .Jnts.Shoulder;
+      AnyJoint &Jnt2 = .Jnts.Elbow;
+      DriverPos = {Main.Param.ShoulderAngle,Main.Param.ElbowAngle};
+      DriverVel = {0.0,0.0};
+      Reaction.Type = {Off,Off};
+    };
+    
+    AnyForce3D HandLoad = {
+      AnyRefNode &HandNode = .Segs.LowerArm.HandNode;
+      F = {0,0,Main.Param.Load};  // Global force in Newton
+      //Flocal = {0,0,-100};  // Global force in Newton
+    };
+    
+  }; // End of Left
+
+
+
+};//End of ArmModel
+
+
+
+
+
+  
+// =======================================================
+// "The body study"
+// =======================================================
+AnyBodyStudy ArmModelStudy = {
+  AnyFolder& Model = Main.ArmModel;
+  Gravity = {0,0,-9.81};
+
+  InverseDynamics.Criterion.Type = MR_MinMaxStrict;
+};
+
+
+}; // End of file
